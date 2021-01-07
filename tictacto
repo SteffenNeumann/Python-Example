@@ -1,0 +1,62 @@
+import numpy as np
+import time
+import random
+
+def main():
+    arr = np.array([1,1])
+    arr.resize(3, 3)
+    n=0
+    p=0
+    dia=arr.ndim+1
+    dia=dia*len(arr)
+   
+    for x in arr:
+        arr[x]=-1
+
+    while n<dia:
+        time.sleep(1)
+        p=n % 2+1
+        player(arr,p)
+        printarr (arr,n,p)
+        if is_winner(arr,p)== p:
+            print(f'And the Winner is Player {p}')
+            return False
+        n+=1
+ 
+def printarr (arr,n,p):
+    print(f'Spielzug  {n+1}  von Spieler {p}')
+    print(arr)  
+    
+def player(arr,p):
+    success=False
+    while not success:
+        r=random.randint(0,2)
+        s=random.randint(0,2)
+        if arr[r,s]==-1:
+            arr[r,s]=p
+            success=True
+"""
+[0,0][0,1][0,2]
+[1,0][1,1][1,2]
+[2,0][2,1][2,2]
+"""
+def is_winner(arr,p):
+    if arr[0,0]==p and arr[0,1]==p and arr[0,2]==p:
+        return p
+    elif arr[1,0]==p and arr[1,1]==p and arr[1,2]==p:
+        return p
+    elif arr[2,0]==p and arr[2,1]==p and arr[2,2]==p:
+        return p                                    
+    elif arr[0,0]==p and arr[1,1]==p and arr[2,2]==p:
+        return p
+    elif arr[2,0]==p and arr[1,1]==p and arr[0,2]==p:
+        return p
+    elif arr[0,0]==p and arr[1,0]==p and arr[2,0]==p:
+        return p
+    elif arr[0,1]==p and arr[1,1]==p and arr[2,1]==p:
+        return p
+    elif arr[0,2]==p and arr[1,2]==p and arr[2,2]==p:
+        return p
+    return False
+    
+main()
